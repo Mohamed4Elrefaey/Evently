@@ -1,16 +1,40 @@
-# evently
+📱 Evently App
 
-A new Flutter project.
+Evently is a mobile application that helps users create, discover, and attend events easily.
+Any user can sign up, create an event, and share it publicly so others can view and attend.
 
-## Getting Started
+The app is designed to simplify event management and encourage community participation through a clean and user-friendly interface.
 
-This project is a starting point for a Flutter application.
+🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+User authentication (Sign Up & Login)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Create and publish personal events
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+View all public events
+
+Attend events created by other users
+
+Event details (title, date, location, description)
+
+Simple and intuitive UI
+
+🧑‍💻 How It Works
+
+User creates an account or logs in
+
+User adds a new event with all required details
+
+Events are visible to all users
+
+Any user can view and attend available events
+
+🛠️ Technologies Used
+
+Flutter (Mobile Development)
+
+Firebase Authentication
+
+Firebase Firestore
+
+Dart
