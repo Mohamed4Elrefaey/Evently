@@ -5,12 +5,43 @@ abstract class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorsManager.backgroundLight,
 
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsManager.mainColorLight,
+      shape: CircleBorder()
+    ),
+
+
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: ColorsManager.inputsLight,
+      indicatorColor: Colors.transparent,
+      labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorsManager.mainColorLight,
+          );
+        }
+        return TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: ColorsManager.disableColorLight,
+        );
+      }),
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
       centerTitle: true,
     ),
 
     textTheme: TextTheme(
+      bodyLarge: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: ColorsManager.mainColorLight,
+      ),
       bodySmall: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,
@@ -61,12 +92,45 @@ abstract class AppTheme {
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorsManager.backgroundDark,
 
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: ColorsManager.mainColorDark,
+        shape: CircleBorder()
+    ),
+
+
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: ColorsManager.backgroundDark,
+      indicatorColor: Colors.transparent,
+      labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorsManager.mainColorDark,
+          );
+        }
+        return TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: ColorsManager.disableColorDark,
+        );
+      }),
+    ),
+
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
       centerTitle: true,
     ),
 
     textTheme: TextTheme(
+      bodyLarge: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: ColorsManager.mainTextDark,
+      ),
+
       bodySmall: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,

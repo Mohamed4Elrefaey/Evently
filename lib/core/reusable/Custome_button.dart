@@ -1,26 +1,51 @@
+import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:flutter/material.dart';
 
 class CustomeButton extends StatelessWidget {
   String text;
   final VoidCallback onclick;
+  String? logo;
 
-  CustomeButton({required this.text, required this.onclick});
+  CustomeButton({required this.text, required this.onclick, this.logo});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: logo == null
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.primaryContainer,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       onPressed: onclick,
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        ),
-      ),
+      child: logo == null
+          ? Text(
+              text,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: Image.asset(
+                    AssetsManager.google,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

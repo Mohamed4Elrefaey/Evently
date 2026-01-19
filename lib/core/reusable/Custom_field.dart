@@ -1,0 +1,94 @@
+import 'package:evently/core/resources/AssetsManager.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class CustomField extends StatefulWidget {
+  String hint;
+  final TextEditingController Controller;
+  String? prefixIcon;
+  String? suffixIcon;
+  String? Function(String?) validation;
+
+  CustomField({
+    required this.validation,
+    required this.hint,
+    required this.Controller,
+    this.prefixIcon,
+    this.suffixIcon,
+  });
+
+  @override
+  State<CustomField> createState() => _CustomFieldState();
+}
+
+class _CustomFieldState extends State<CustomField> {
+  bool isVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator: widget.validation,
+      obscureText: widget.suffixIcon == null ? false : !isVisible,
+      decoration: InputDecoration(
+        fillColor: Theme.of(context).colorScheme.primaryContainer,
+        filled: true,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ),
+        hintText: widget.hint,
+        hintStyle: Theme.of(
+          context,
+        ).textTheme.bodyMedium?.copyWith(fontSize: 14),
+        prefixIconConstraints: BoxConstraints(
+          maxHeight: 40,
+          minHeight: 40,
+          maxWidth: 40,
+          minWidth: 40,
+        ),
+        prefixIcon: widget.prefixIcon != null
+            ? Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: SvgPicture.asset(widget.prefixIcon!),
+              )
+            : null,
+
+        suffixIcon: widget.suffixIcon != null
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                icon: SvgPicture.asset(
+                  isVisible ? AssetsManager.invisibleOn : widget.suffixIcon!,
+                  width: 24,
+                  height: 24,
+                ),
+              )
+            : null,
+      ),
+      style: Theme.of(context).textTheme.bodyMedium,
+    );
+  }
+}

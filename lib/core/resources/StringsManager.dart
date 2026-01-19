@@ -38,4 +38,8 @@ abstract final class StringsManager {
   static const String alreadyHaveAccount = "Already have an account? Login";
   static const String forgetPasswordTitle = "Forget Password";
   static const String resetPasswordBtn = "Reset password";
+  static const String home = "Home";
+  static const String favorite = "Favorite";
+  static const String profile = "Profile";
+
 }
