@@ -23,8 +23,26 @@ abstract final class AssetsManager {
   static const String selectedHeart = "assets/icons/selected_heart.svg";
   static const String selectedUer = "assets/icons/selected_user.svg";
   static const String all = "assets/icons/all.svg";
+  static const String route = "assets/images/route.png";
+  static const String english = "english";
+  static const String arabic = "arabic";
+  static const String search = "assets/icons/search.svg";
   static const String add = "assets/icons/add.svg";
-
-
-
+  static const String sport = "assets/icons/Sport.svg";
+  static const String birthday = "assets/icons/birthday-cake.svg";
+  static const String exhibition = "assets/icons/exhibition.svg";
+  static const String meeting = "assets/icons/meeting.svg";
+  static const String book = "assets/icons/book.svg";
+  static const String calender = "assets/icons/calendar.svg";
+  static const String clock = "assets/icons/clock.svg";
+  static const String birthdayImage = "assets/images/birthday_image.png";
+  static const String birthdayImageDark = "assets/images/Birthday_dark.png";
+  static const String bookImage = "assets/images/book.png";
+  static const String bookImageDark = "assets/images/Book_dark.png";
+  static const String exhibitionImage = "assets/images/Exhibition.png";
+  static const String exhibitionImageDark = "assets/images/Exhibition_dark.png";
+  static const String meetingImage = "assets/images/Meeting.png";
+  static const String meetingImageDark = "assets/images/meeting_dark.png";
+  static const String sportImage = "assets/images/sport.png";
+  static const String sportImageDark = "assets/images/Sport_dark.png";
 }

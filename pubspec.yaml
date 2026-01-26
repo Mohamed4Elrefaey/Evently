@@ -37,6 +37,11 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_svg: ^2.2.3
   smooth_page_indicator: ^2.0.1
+  image_picker: ^1.2.1
+  provider: ^6.1.5+1
+  shared_preferences: ^2.5.4
+  easy_localization: ^3.0.8
+  firebase_core: ^4.4.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +69,7 @@ flutter:
   assets:
    - assets/images/
    - assets/icons/
+   - assets/translation/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -77,10 +83,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+      - family: MyFlutterApp
+        fonts:
+          - asset: assets/fonts/MyFlutterApp.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

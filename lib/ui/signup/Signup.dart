@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/ui/login_screen/LoginScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -67,28 +68,29 @@ class _SignupScreenState extends State<SignupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  StringsManager.signupTitle,
+                  StringsManager.signupTitle.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: 24),
                 CustomField(
                   validation: Validation.validateName,
                   prefixIcon: AssetsManager.user,
-                  hint: StringsManager.enterYourName,
+                  hint: StringsManager.enterYourName.tr(),
                   Controller: emailController,
                 ),
                 SizedBox(height: 24),
                 CustomField(
                   validation: Validation.validateEmail,
                   prefixIcon: AssetsManager.email,
-                  hint: StringsManager.enterYourEmail,
+                  hint: StringsManager.enterYourEmail.tr(),
                   Controller: emailController,
                 ),
                 SizedBox(height: 24),
                 CustomField(
+                  isPass: true,
                   validation: Validation.validatePass,
                   prefixIcon: AssetsManager.lockPass,
-                  hint: StringsManager.enterYourPassword,
+                  hint: StringsManager.enterYourPassword.tr(),
                   Controller: passController,
                   suffixIcon: AssetsManager.invisiblePass,
                 ),
@@ -101,16 +103,17 @@ class _SignupScreenState extends State<SignupScreen> {
                     );
                   },
                   prefixIcon: AssetsManager.lockPass,
-                  hint: StringsManager.confirmPassword,
+                  hint: StringsManager.confirmPassword.tr(),
                   Controller: confirmPassController,
                   suffixIcon: AssetsManager.invisiblePass,
+                  isPass: true,
                 ),
                 SizedBox(height: 48),
                 SizedBox(
                   height: 48,
                   width: double.infinity,
                   child: CustomeButton(
-                    text: StringsManager.signupBtn,
+                    text: StringsManager.signupBtn.tr(),
                     onclick: () {
                       signup();
                     },
@@ -121,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.donNotHaveAccount,
+                      StringsManager.donNotHaveAccount.tr(),
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium?.copyWith(fontSize: 14),
@@ -134,7 +137,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         );
                       },
                       child: Text(
-                        StringsManager.loginText,
+                        StringsManager.loginText.tr(),
                         style: Theme.of(
                           context,
                         ).textTheme.displayLarge?.copyWith(fontSize: 16),
@@ -159,7 +162,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          StringsManager.or,
+                          StringsManager.or.tr(),
                           style: Theme.of(context).textTheme.displayLarge
                               ?.copyWith(
                                 fontSize: 16,
@@ -184,7 +187,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   width: double.infinity,
                   child: CustomeButton(
                     logo: AssetsManager.google,
-                    text: StringsManager.signupWithGoogle,
+                    text: StringsManager.signupWithGoogle.tr(),
                     onclick: () {},
                   ),
                 ),
@@ -197,7 +200,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void signup() {
-    if(widget.formKey.currentState?.validate() ?? false ){
+    if (widget.formKey.currentState?.validate() ?? false) {
       Navigator.pushReplacementNamed(context, Homescreen.routeName);
     }
   }

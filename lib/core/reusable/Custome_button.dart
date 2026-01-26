@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class CustomeButton extends StatelessWidget {
       onPressed: onclick,
       child: logo == null
           ? Text(
-              text,
+              text.tr(),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
@@ -38,7 +39,7 @@ class CustomeButton extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  text,
+                  text.tr(),
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,

@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:evently/core/resources/StringsManager.dart';
 import 'package:evently/core/reusable/Custome_button.dart';
+import 'package:evently/ui/home/homeScreen.dart';
 import 'package:evently/ui/onboarding/data/onboardingItems.dart';
 import 'package:evently/ui/onboarding/widgets/ContentPage.dart';
 import 'package:evently/ui/onboarding/widgets/Indicator.dart';
-import 'package:evently/ui/start_screen/startScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeIn,
       );
     } else {
-      Navigator.pushReplacementNamed(context, StartScreen.routeName);
+      Navigator.pushReplacementNamed(context, Homescreen.routeName);
     }
   }
 
@@ -77,7 +78,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             width: 32,
                             height: 32,
                             child: SvgPicture.asset(
-                              AssetsManager.arrowBack,
+                              EasyLocalization.of(context)!.locale.languageCode == 'ar'
+                                  ? AssetsManager.arrowRight
+                                  : AssetsManager.arrowBack,
                               colorFilter: ColorFilter.mode(
                                 Theme.of(context).colorScheme.onSurface,
                                 BlendMode.srcIn,
@@ -96,7 +99,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   currentIndex < controller.onboardingItems.length - 1
                       ? InkWell(
                           onTap: () {
-                            _pageController.jumpToPage(3); // do not forget to handle it to navigate to login screen
+                            _pageController.jumpToPage(
+                              3,
+                            ); // do not forget to handle it to navigate to login screen
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -114,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             width: 65,
                             height: 32,
                             child: Text(
-                              StringsManager.skip,
+                              StringsManager.skip.tr(),
                               style: Theme.of(context).textTheme.headlineMedium
                                   ?.copyWith(
                                     fontWeight: FontWeight.w600,

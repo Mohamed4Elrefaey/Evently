@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,15 +7,20 @@ class CustomField extends StatefulWidget {
   String hint;
   final TextEditingController Controller;
   String? prefixIcon;
+  bool? isPass;
   String? suffixIcon;
-  String? Function(String?) validation;
+  int maxLines ;
+  String? Function(String?)? validation;
 
   CustomField({
+    this.maxLines = 1,
     required this.validation,
     required this.hint,
     required this.Controller,
     this.prefixIcon,
     this.suffixIcon,
+    this.isPass = false,
+
   });
 
   @override
@@ -27,8 +33,9 @@ class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: widget.validation,
-      obscureText: widget.suffixIcon == null ? false : !isVisible,
+      maxLines: widget.maxLines,
+      validator:  widget.validation,
+      obscureText: widget.isPass == false ? false : !isVisible,
       decoration: InputDecoration(
         fillColor: Theme.of(context).colorScheme.primaryContainer,
         filled: true,
@@ -56,7 +63,7 @@ class _CustomFieldState extends State<CustomField> {
             color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
         ),
-        hintText: widget.hint,
+        hintText: widget.hint.tr(),
         hintStyle: Theme.of(
           context,
         ).textTheme.bodyMedium?.copyWith(fontSize: 14),

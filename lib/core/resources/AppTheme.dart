@@ -5,13 +5,10 @@ abstract class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorsManager.backgroundLight,
 
-
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: ColorsManager.mainColorLight,
-      shape: CircleBorder()
+      shape: CircleBorder(),
     ),
-
-
 
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: ColorsManager.inputsLight,
@@ -73,6 +70,16 @@ abstract class AppTheme {
         fontWeight: FontWeight.w500,
         color: ColorsManager.mainColorLight,
       ),
+      headlineLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.mainTextLight,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.mainTextLight,
+      ),
     ),
 
     colorScheme: ColorScheme.light(
@@ -86,19 +93,17 @@ abstract class AppTheme {
       onSurface: ColorsManager.mainColorLight,
       onTertiary: ColorsManager.disableColorLight,
       onTertiaryContainer: ColorsManager.disableColorLight,
+      surfaceBright: ColorsManager.backgroundLight,
     ),
   );
 
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorsManager.backgroundDark,
 
-
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: ColorsManager.mainColorDark,
-        shape: CircleBorder()
+      backgroundColor: ColorsManager.mainColorDark,
+      shape: CircleBorder(),
     ),
-
-
 
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: ColorsManager.backgroundDark,
@@ -154,6 +159,12 @@ abstract class AppTheme {
         color: ColorsManager.mainTextDark,
       ),
 
+      titleSmall: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.mainTextDark,
+      ),
+
       displayLarge: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 14,
@@ -162,6 +173,12 @@ abstract class AppTheme {
 
       headlineMedium: TextStyle(
         fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.mainTextDark,
+      ),
+
+      headlineLarge: TextStyle(
+        fontSize: 20,
         fontWeight: FontWeight.w500,
         color: ColorsManager.mainTextDark,
       ),
@@ -177,6 +194,7 @@ abstract class AppTheme {
       onSurface: ColorsManager.mainTextDark,
       onTertiaryContainer: ColorsManager.mainTextDark,
       onTertiary: ColorsManager.disableColorDark,
+      surfaceBright: ColorsManager.backgroundDark,
     ),
   );
 }

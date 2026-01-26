@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/StringsManager.dart';
 import 'package:evently/core/resources/Validation.dart';
 import 'package:evently/core/reusable/Custom_field.dart';
@@ -66,14 +67,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomField(
                   validation: Validation.validateEmail,
                   prefixIcon: AssetsManager.email,
-                  hint: StringsManager.enterYourEmail,
+                  hint: StringsManager.enterYourEmail.tr(),
                   Controller: emailController,
                 ),
                 SizedBox(height: 24),
                 CustomField(
+                  isPass: true,
                   validation: Validation.validatePass,
                   prefixIcon: AssetsManager.lockPass,
-                  hint: StringsManager.enterYourPassword,
+                  hint: StringsManager.enterYourPassword.tr(),
                   Controller: passController,
                   suffixIcon: AssetsManager.invisiblePass,
                 ),
@@ -84,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, ForgetPass.routeName);
                     },
                     child: Text(
-                      StringsManager.forgetPasswordAsk,
+                      StringsManager.forgetPasswordAsk.tr(),
                       style: Theme.of(context).textTheme.displayLarge,
                     ),
                   ),
@@ -94,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 48,
                   width: double.infinity,
                   child: CustomeButton(
-                    text: StringsManager.loginBtn,
+                    text: StringsManager.loginBtn.tr(),
                     onclick: () {
                       login();
                     },
@@ -105,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      StringsManager.donNotHaveAccount,
+                      StringsManager.donNotHaveAccount.tr(),
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium?.copyWith(fontSize: 14),
@@ -118,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: Text(
-                        StringsManager.signupText,
+                        StringsManager.signupText.tr(),
                         style: Theme.of(
                           context,
                         ).textTheme.displayLarge?.copyWith(fontSize: 16),
@@ -143,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          StringsManager.or,
+                          StringsManager.or.tr(),
                           style: Theme.of(context).textTheme.displayLarge
                               ?.copyWith(
                                 fontSize: 16,
@@ -168,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: CustomeButton(
                     logo: AssetsManager.google,
-                    text: StringsManager.loginWithGoogle,
+                    text: StringsManager.loginWithGoogle.tr(),
                     onclick: () {},
                   ),
                 ),
@@ -181,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() {
-    if(widget.formKey.currentState?.validate() ?? false ){
+    if (widget.formKey.currentState?.validate() ?? false) {
       Navigator.pushReplacementNamed(context, Homescreen.routeName);
     }
   }
