@@ -1,3 +1,4 @@
+import 'package:evently/core/providers/User_provider.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:evently/core/resources/StringsManager.dart';
 import 'package:evently/ui/Add_event/add_event_screen.dart';
@@ -6,6 +7,7 @@ import 'package:evently/ui/home/taps/Home_tab/Home_tap.dart';
 import 'package:evently/ui/home/taps/Home_tab/Profile/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -19,6 +21,13 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   int selectedIndex = 0;
   List<Widget> tabs = [HomeTap(), FavoriteTab(), ProfileTab()];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<UserProvider>(context, listen: false).getUserFromFirestore();
+  }
 
   @override
   Widget build(BuildContext context) {

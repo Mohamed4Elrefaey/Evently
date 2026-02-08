@@ -27,6 +27,27 @@ class CustomeButton extends StatelessWidget {
                 color: Colors.white,
               ),
             )
+          : context.locale.languageCode == 'ar'
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  text.tr(),
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: Image.asset(
+                    AssetsManager.google,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ],
+            )
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

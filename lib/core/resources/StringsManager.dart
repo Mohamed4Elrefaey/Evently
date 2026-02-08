@@ -72,7 +72,9 @@ abstract final class StringsManager {
   static const String book = "book";
   static const String dark = "dark";
   static const String exhibition = "exhibition";
-
   static const String searchHint = "search_hint";
   static const String birthdayParty = "birthday_party";
+
+  static const String logoutDialog = "logout_dialog";
+
 }

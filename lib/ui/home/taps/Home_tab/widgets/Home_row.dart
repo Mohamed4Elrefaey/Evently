@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/providers/User_provider.dart';
+
 class HomeRow extends StatelessWidget {
   const HomeRow({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // object of user provider
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     ThemeProvider provider = Provider.of<ThemeProvider>(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +30,7 @@ class HomeRow extends StatelessWidget {
               ).textTheme.bodyMedium?.copyWith(fontSize: 14),
             ),
             Text(
-              StringsManager.profileName.tr(),
+              userProvider.UserData?.name??" ",
               style: Theme.of(context).textTheme.headlineLarge,
             ),
           ],

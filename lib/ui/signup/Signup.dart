@@ -1,7 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/core/Firebase/firestore_manager.dart';
+import 'package:evently/core/resources/DialogUtils.dart';
+import 'package:evently/models/User.dart' as MyUser;
 import 'package:evently/ui/login_screen/LoginScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../core/providers/User_provider.dart';
 import '../../core/resources/AssetsManager.dart';
 import '../../core/resources/StringsManager.dart';
 import '../../core/resources/Validation.dart';
@@ -76,14 +82,14 @@ class _SignupScreenState extends State<SignupScreen> {
                   validation: Validation.validateName,
                   prefixIcon: AssetsManager.user,
                   hint: StringsManager.enterYourName.tr(),
-                  Controller: emailController,
+                  controller: nameController,
                 ),
                 SizedBox(height: 24),
                 CustomField(
                   validation: Validation.validateEmail,
                   prefixIcon: AssetsManager.email,
                   hint: StringsManager.enterYourEmail.tr(),
-                  Controller: emailController,
+                  controller: emailController,
                 ),
                 SizedBox(height: 24),
                 CustomField(
@@ -91,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   validation: Validation.validatePass,
                   prefixIcon: AssetsManager.lockPass,
                   hint: StringsManager.enterYourPassword.tr(),
-                  Controller: passController,
+                  controller: passController,
                   suffixIcon: AssetsManager.invisiblePass,
                 ),
                 SizedBox(height: 24),
@@ -104,7 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   prefixIcon: AssetsManager.lockPass,
                   hint: StringsManager.confirmPassword.tr(),
-                  Controller: confirmPassController,
+                  controller: confirmPassController,
                   suffixIcon: AssetsManager.invisiblePass,
                   isPass: true,
                 ),
@@ -199,9 +205,45 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void signup() {
+  void signup() async {
     if (widget.formKey.currentState?.validate() ?? false) {
-      Navigator.pushReplacementNamed(context, Homescreen.routeName);
+      try {
+        DialogUtils.loadingDialog(context: context);
+        UserCredential credential = await FirebaseAuth
+            .instance // singleton
+            .createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passController.text,
+            );
+        final newUser = MyUser.User(
+          id: credential.user!.uid,
+          email: emailController.text,
+          name: nameController.text
+        );
+        // add user to database
+        await FirestoreManager.addUser(
+          userId: credential.user!.uid,
+          user: newUser
+        );
+        // context.read<UserProvider>().setUser(newUser);
+        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, Homescreen.routeName);
+      } on FirebaseAuthException catch (e) {
+        Navigator.pop(context); //to close loading dialog
+        if (e.code == "weak-password") {
+          DialogUtils.massageDialog(
+            context: context,
+            massage: "The password is too weak.",
+          );
+        } else if (e.code == "email-already-in-use") {
+          DialogUtils.massageDialog(
+            context: context,
+            massage: "The account already exists for that email.",
+          );
+        }
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
 }

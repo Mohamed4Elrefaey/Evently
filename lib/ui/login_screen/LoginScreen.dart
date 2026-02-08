@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/core/resources/DialogUtils.dart';
 import 'package:evently/core/resources/StringsManager.dart';
 import 'package:evently/core/resources/Validation.dart';
 import 'package:evently/core/reusable/Custom_field.dart';
@@ -6,8 +7,10 @@ import 'package:evently/core/reusable/Custome_button.dart';
 import 'package:evently/ui/ForgetPass/ForgetPass.dart';
 import 'package:evently/ui/home/homeScreen.dart';
 import 'package:evently/ui/signup/Signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/Firebase/google_auth.dart';
 import '../../core/resources/AssetsManager.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,6 +27,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passController;
+
+  final auth = GoogleAuth();
 
   @override
   void initState() {
@@ -60,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  StringsManager.loginTitle,
+                  StringsManager.loginTitle.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: 24),
@@ -68,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   validation: Validation.validateEmail,
                   prefixIcon: AssetsManager.email,
                   hint: StringsManager.enterYourEmail.tr(),
-                  Controller: emailController,
+                  controller: emailController,
                 ),
                 SizedBox(height: 24),
                 CustomField(
@@ -76,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   validation: Validation.validatePass,
                   prefixIcon: AssetsManager.lockPass,
                   hint: StringsManager.enterYourPassword.tr(),
-                  Controller: passController,
+                  controller: passController,
                   suffixIcon: AssetsManager.invisiblePass,
                 ),
                 Align(
@@ -171,7 +176,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: CustomeButton(
                     logo: AssetsManager.google,
                     text: StringsManager.loginWithGoogle.tr(),
-                    onclick: () {},
+                    onclick: () async {
+                      await auth.signInWithGoogle();
+                    },
                   ),
                 ),
               ],
@@ -182,9 +189,32 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() {
-    if (widget.formKey.currentState?.validate() ?? false) {
+  void login() async {
+    try {
+      DialogUtils.loadingDialog(context: context);
+      UserCredential credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: emailController.text,
+            password: passController.text,
+          );
+      Navigator.pop(context);
       Navigator.pushReplacementNamed(context, Homescreen.routeName);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == "user-not-found") {
+        DialogUtils.massageDialog(
+          context: context,
+          massage: "No user found for that email",
+        );
+      } else if (e.code == "wrong-password") {
+        DialogUtils.massageDialog(
+          context: context,
+          massage: "Wrong password for that user",
+        );
+      }
+    } catch (e) {
+      Navigator.pop(context);
+      DialogUtils.massageDialog(context: context, massage: e.toString());
     }
   }
 }

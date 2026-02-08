@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:evently/core/resources/StringsManager.dart';
 import 'package:evently/core/reusable/Custome_button.dart';
-import 'package:evently/ui/home/homeScreen.dart';
+import 'package:evently/ui/login_screen/LoginScreen.dart';
 import 'package:evently/ui/onboarding/data/onboardingItems.dart';
 import 'package:evently/ui/onboarding/widgets/ContentPage.dart';
 import 'package:evently/ui/onboarding/widgets/Indicator.dart';
@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeIn,
       );
     } else {
-      Navigator.pushReplacementNamed(context, Homescreen.routeName);
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
     }
   }
 
@@ -78,7 +78,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             width: 32,
                             height: 32,
                             child: SvgPicture.asset(
-                              EasyLocalization.of(context)!.locale.languageCode == 'ar'
+                              EasyLocalization.of(
+                                        context,
+                                      )!.locale.languageCode ==
+                                      'ar'
                                   ? AssetsManager.arrowRight
                                   : AssetsManager.arrowBack,
                               colorFilter: ColorFilter.mode(
@@ -99,9 +102,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   currentIndex < controller.onboardingItems.length - 1
                       ? InkWell(
                           onTap: () {
-                            _pageController.jumpToPage(
-                              3,
-                            ); // do not forget to handle it to navigate to login screen
+                            // do not forget to handle it to navigate to login screen
+                            Navigator.pushReplacementNamed(
+                              context,
+                              LoginScreen.routeName,
+                            );
                           },
                           child: Container(
                             alignment: Alignment.center,

@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/core/resources/AssetsManager.dart';
+import 'package:evently/core/providers/User_provider.dart';
 import 'package:evently/core/resources/StringsManager.dart';
 import 'package:evently/core/resources/app_icons.dart';
 import 'package:evently/ui/home/taps/Home_tab/widgets/allTabs/AllTab.dart';
@@ -11,12 +11,15 @@ import 'package:evently/ui/home/taps/Home_tab/widgets/allTabs/bookTab.dart';
 import 'package:evently/ui/home/taps/Home_tab/widgets/allTabs/exhibitionTab.dart';
 import 'package:evently/ui/home/taps/Home_tab/widgets/allTabs/meetingTab.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 class HomeTap extends StatelessWidget {
   const HomeTap({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 6,
       child: SafeArea(

@@ -59,5 +59,6 @@
   "dark": "Dark Mode",
   "exhibition": "Exhibition",
   "search_hint": "Search for event",
-  "birthday_party": "This is a Birthday Party"
+  "birthday_party": "This is a Birthday Party",
+  "logout_dialog": "Are you sure you want to log out?"
 }

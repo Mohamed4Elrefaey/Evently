@@ -59,5 +59,6 @@
   "dark": "الوضع الداكن",
   "exhibition": "معرض",
   "search_hint": "ابحث عن حدث",
-  "birthday_party": " حفلة عيد ميلاد"
+  "birthday_party": " حفلة عيد ميلاد",
+  "logout_dialog": "هل انت متأكد من تسجيل الخروج؟"
 }

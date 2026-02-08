@@ -7,8 +7,9 @@ class TimeRow extends StatelessWidget {
   String icon;
   String title;
   String choose;
+  final VoidCallback onClick ;
 
-  TimeRow({required this.icon, required this.title, required this.choose});
+  TimeRow({required this.icon, required this.title, required this.choose , required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,7 @@ class TimeRow extends StatelessWidget {
         Text(title, style: Theme.of(context).textTheme.titleSmall),
         Spacer(),
         TextButton(
-          onPressed: () {
-          },
+          onPressed: onClick,
           child: Text(
             choose,
             style: Theme.of(context).textTheme.displayLarge

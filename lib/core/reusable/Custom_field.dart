@@ -5,22 +5,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomField extends StatefulWidget {
   String hint;
-  final TextEditingController Controller;
+  final TextEditingController controller;
   String? prefixIcon;
   bool? isPass;
   String? suffixIcon;
-  int maxLines ;
+  int maxLines;
+
   String? Function(String?)? validation;
 
   CustomField({
     this.maxLines = 1,
     required this.validation,
     required this.hint,
-    required this.Controller,
+    required this.controller,
     this.prefixIcon,
     this.suffixIcon,
     this.isPass = false,
-
   });
 
   @override
@@ -33,8 +33,9 @@ class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       maxLines: widget.maxLines,
-      validator:  widget.validation,
+      validator: widget.validation,
       obscureText: widget.isPass == false ? false : !isVisible,
       decoration: InputDecoration(
         fillColor: Theme.of(context).colorScheme.primaryContainer,
@@ -73,9 +74,15 @@ class _CustomFieldState extends State<CustomField> {
           maxWidth: 40,
           minWidth: 40,
         ),
-        prefixIcon: widget.prefixIcon != null
+        prefixIcon:
+            widget.prefixIcon != null && context.locale.languageCode != 'ar'
             ? Padding(
                 padding: const EdgeInsets.only(left: 16),
+                child: SvgPicture.asset(widget.prefixIcon!),
+              )
+            : widget.prefixIcon != null && context.locale.languageCode == 'ar'
+            ? Padding(
+                padding: const EdgeInsets.only(right: 16),
                 child: SvgPicture.asset(widget.prefixIcon!),
               )
             : null,
