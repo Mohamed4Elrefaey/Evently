@@ -1,47 +1,69 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/Firebase/firestore_manager.dart';
-import 'package:evently/core/providers/theme_provider.dart';
+import 'package:evently/core/providers/EventProvider.dart';
 import 'package:evently/core/resources/AppCostance.dart';
-import 'package:evently/core/resources/AssetsManager.dart';
-import 'package:evently/core/resources/DialogUtils.dart';
-import 'package:evently/core/resources/StringsManager.dart';
-import 'package:evently/core/resources/Validation.dart';
-import 'package:evently/core/reusable/CustomAppBar.dart';
-import 'package:evently/core/reusable/Custom_field.dart';
-import 'package:evently/core/reusable/Custome_button.dart';
 import 'package:evently/models/Event_model.dart';
-import 'package:evently/ui/Add_event/widgets/TabViewImage.dart';
-import 'package:evently/ui/Add_event/widgets/TimeRow.dart';
-import 'package:evently/ui/home/homeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/providers/theme_provider.dart';
+import '../../core/resources/AssetsManager.dart';
+import '../../core/resources/DialogUtils.dart';
+import '../../core/resources/StringsManager.dart';
+import '../../core/resources/Validation.dart';
 import '../../core/resources/app_icons.dart';
+import '../../core/reusable/CustomAppBar.dart';
+import '../../core/reusable/Custom_field.dart';
+import '../../core/reusable/Custome_button.dart';
+import '../Add_event/widgets/TabViewImage.dart';
+import '../Add_event/widgets/TimeRow.dart';
+import '../home/homeScreen.dart';
 import '../home/taps/Home_tab/widgets/TabContainer.dart';
 
-class AddEventScreen extends StatefulWidget {
-  const AddEventScreen({super.key});
+class EditEventScreen extends StatefulWidget {
+  const EditEventScreen({super.key});
 
-  static const String routeName = "addEvent";
+  static const routeName = "edit_event_screen";
 
   @override
-  State<AddEventScreen> createState() => _AddEventScreenState();
+  State<EditEventScreen> createState() => _EditEventScreenState();
 }
 
-class _AddEventScreenState extends State<AddEventScreen> {
+class _EditEventScreenState extends State<EditEventScreen> {
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   late TextEditingController titleController;
   late TextEditingController descController;
+  late EventProvider eventProvider;
+  late String eventType;
+  late DateTime dateAndTime;
   GlobalKey<FormState> formKey = GlobalKey();
   int selectedIndex = 0;
 
   @override
   void initState() {
-    // TODO: implement initState
-    titleController = TextEditingController();
-    descController = TextEditingController();
     super.initState();
+    // TODO: implement initState
+    eventProvider = context.read<EventProvider>();
+    titleController = TextEditingController(text: eventProvider.myEvent?.title);
+    descController = TextEditingController(text: eventProvider.myEvent?.desc);
+    eventType = eventProvider.myEvent?.type ?? "";
+    dateAndTime = eventProvider.myEvent!.dateOfTime!.toDate();
+    if (Appcostance.evetsTypes.contains(eventType)) {
+      selectedIndex = Appcostance.evetsTypes.indexOf(eventType);
+    }
+
+    selectedDate = DateTime(
+        dateAndTime.year,
+        dateAndTime.month,
+        dateAndTime.day
+    );
+    selectedTime = TimeOfDay(
+        hour: dateAndTime.hour,
+        minute: dateAndTime.minute
+    );
   }
 
   @override
@@ -55,28 +77,30 @@ class _AddEventScreenState extends State<AddEventScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-    double height = MediaQuery.of(context).size.height;
-    String? formattedTime;
-    if (selectedTime != null) {
-      formattedTime = MaterialLocalizations.of(
-        context,
-      ).formatTimeOfDay(selectedTime!, alwaysUse24HourFormat: false);
-    }
-
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    String? formattedTime = selectedTime?.format(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: Text(
-          StringsManager.addEvent.tr(),
-          style: Theme.of(
+          StringsManager.editEvent.tr(),
+          style: Theme
+              .of(
             context,
-          ).textTheme.headlineLarge?.copyWith(fontSize: 18),
+          )
+              .textTheme
+              .headlineLarge
+              ?.copyWith(fontSize: 18),
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: DefaultTabController(
-            length: 5,
+            initialIndex: selectedIndex,
+            length: Appcostance.evetsTypes.length,
             child: Form(
               key: formKey,
               child: Column(
@@ -122,21 +146,36 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       selectedIndex = value;
                     },
                     dividerHeight: 0,
-                    unselectedLabelColor: Theme.of(context).colorScheme.primary,
-                    unselectedLabelStyle: Theme.of(
+                    unselectedLabelColor: Theme
+                        .of(context)
+                        .colorScheme
+                        .primary,
+                    unselectedLabelStyle: Theme
+                        .of(
                       context,
-                    ).textTheme.titleSmall,
-                    labelStyle: Theme.of(context).textTheme.titleSmall
+                    )
+                        .textTheme
+                        .titleSmall,
+                    labelStyle: Theme
+                        .of(context)
+                        .textTheme
+                        .titleSmall
                         ?.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.secondaryContainer,
-                        ),
+                      color: Theme
+                          .of(
+                        context,
+                      )
+                          .colorScheme
+                          .secondaryContainer,
+                    ),
                     tabAlignment: TabAlignment.start,
                     isScrollable: true,
                     indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .primary,
                     ),
                     tabs: [
                       Tab(
@@ -174,7 +213,10 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   SizedBox(height: 16),
                   Text(
                     StringsManager.title.tr(),
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleSmall,
                   ),
                   SizedBox(height: 8),
                   CustomField(
@@ -185,7 +227,10 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   SizedBox(height: 16),
                   Text(
                     StringsManager.description.tr(),
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleSmall,
                   ),
                   SizedBox(height: 8),
                   CustomField(
@@ -214,9 +259,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
                     width: double.infinity,
                     height: 48,
                     child: CustomeButton(
-                      text: StringsManager.addEvent.tr(),
+                      text: StringsManager.upDateEvent.tr(),
                       onclick: () {
-                        addEvent();
+                        editEvent();
                       },
                     ),
                   ),
@@ -229,7 +274,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
     );
   }
 
-  Future<void> addEvent() async {
+  Future<void> editEvent() async {
     if (formKey.currentState!.validate()) {
       if (selectedTime == null) {
         DialogUtils.showToast("Choose event Time", context);
@@ -245,17 +290,19 @@ class _AddEventScreenState extends State<AddEventScreen> {
             selectedTime!.hour,
             selectedTime!.minute,
           );
-          Event event = Event(
+          Event newEvent = Event(
+            id: eventProvider.myEvent?.id,
             title: titleController.text,
             desc: descController.text,
             userId: FirebaseAuth.instance.currentUser!.uid,
             type: Appcostance.evetsTypes[selectedIndex],
             dateOfTime: Timestamp.fromDate(eventDate),
-          );
-          await FirestoreManager.addEvent(event: event);
+          ) ;
+          await FirestoreManager.updateEvent(event: newEvent);
+          eventProvider.UpdateEvent(newEvent: newEvent);
           Navigator.pop(context);
           Navigator.pushNamed(context, Homescreen.routeName);
-          DialogUtils.showToast("Event added successfully..!", context);
+          DialogUtils.showToast("Event Updated successfully..!", context);
         } catch (e) {
           Navigator.pop(context);
           DialogUtils.showToast("Error: $e", context);
@@ -263,9 +310,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
       }
     }
   }
-
-  DateTime? selectedDate;
-
   Future<void> chooseDate() async {
     DateTime? newDate = await showDatePicker(
       context: context,
@@ -279,9 +323,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
       });
     }
   }
-
-  TimeOfDay? selectedTime;
-
   Future<void> chooseTime() async {
     TimeOfDay? newTime = await showTimePicker(
       context: context,

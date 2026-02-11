@@ -60,5 +60,12 @@
   "exhibition": "معرض",
   "search_hint": "ابحث عن حدث",
   "birthday_party": " حفلة عيد ميلاد",
-  "logout_dialog": "هل انت متأكد من تسجيل الخروج؟"
+  "logout_dialog": "هل انت متأكد من تسجيل الخروج؟",
+  "event_details" : "تفاصيل الحدث",
+  "edit_event" : "تعديل الحدث",
+  "logout_dialog_title": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "logout_yes" : "نعم",
+  "logout_no" : "إلغاء",
+  "no_favorite": "لا يوجد أي أحداث مفضلة حتى الآن",
+  "upDate_event" : "تحديث الحدث"
 }

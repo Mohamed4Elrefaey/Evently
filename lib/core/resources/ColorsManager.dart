@@ -9,7 +9,7 @@ abstract class ColorsManager {
   static const Color backgroundLight = Color(0xffF4F7FF);
   static const Color inputsLight = Color(0xffFFFFFF);
   static const Color strokeLight = Color(0xffF0F0F0);
-  static const Color red = Color(0xffFF3232);
+  static const Color red = Color(0xffC01304);
 
   // ------> Dark mode colors
   static const Color mainColorDark = Color(0xff457AED);

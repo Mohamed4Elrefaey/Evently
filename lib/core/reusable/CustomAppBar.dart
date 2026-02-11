@@ -26,13 +26,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           width: 32,
           height: 32,
-          child: SvgPicture.asset(
-            EasyLocalization.of(context)?.locale.languageCode == 'ar'
-                ? AssetsManager.arrowRight
-                : AssetsManager.arrowBack,
-            colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.onSurface,
-              BlendMode.srcIn,
+          child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: SvgPicture.asset(
+              EasyLocalization.of(context)?.locale.languageCode == 'ar'
+                  ? AssetsManager.arrowRight
+                  : AssetsManager.arrowBack,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.onSurface,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),

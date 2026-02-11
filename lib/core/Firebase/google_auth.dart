@@ -15,7 +15,7 @@ class GoogleAuth {
     await _googleSignIn.initialize(
       // serverClientId is often the "Web Client ID" from Firebase console
       // Required if you need a server auth code for your backend.
-      serverClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+      serverClientId: '142899219105-1216fqfmgilshp7nu4v1vqq1818d28dk.apps.googleusercontent.com',
     );
   }
 
@@ -25,18 +25,13 @@ class GoogleAuth {
       // 3. New Method: authenticate() replaces the older signIn() in many flows
       // though .signIn() still exists, .authenticate() is the modern GIS standard.
       final GoogleSignInAccount? googleUser = await _googleSignIn.authenticate();
-
       if (googleUser == null) return null;
-
       // 4. Obtain auth details
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
       // 5. Link with Firebase
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.idToken,
         idToken: googleAuth.idToken,
       );
-
       return await _auth.signInWithCredential(credential);
     } catch (e) {
       print("Google Sign-In Error: $e");

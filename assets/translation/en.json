@@ -60,5 +60,12 @@
   "exhibition": "Exhibition",
   "search_hint": "Search for event",
   "birthday_party": "This is a Birthday Party",
-  "logout_dialog": "Are you sure you want to log out?"
+  "logout_dialog": "Are you sure you want to log out?",
+  "event_details" : "Event details",
+  "edit_event" : "Edit event",
+  "logout_dialog_title" : "Are you sure you want to Logout?",
+  "logout_yes" : "Yes",
+  "logout_no" : "Cancel",
+  "no_favorite" : "No favorite events yet",
+  "upDate_event" : "Update event"
 }

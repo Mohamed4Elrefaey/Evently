@@ -6,7 +6,7 @@ import 'package:evently/ui/login_screen/LoginScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../../core/Firebase/google_auth.dart';
 import '../../core/providers/User_provider.dart';
 import '../../core/resources/AssetsManager.dart';
 import '../../core/resources/StringsManager.dart';
@@ -28,13 +28,11 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   late TextEditingController nameController;
-
   late TextEditingController emailController;
-
   late TextEditingController passController;
-
   late TextEditingController confirmPassController;
 
+  final auth = GoogleAuth();
   @override
   void initState() {
     // TODO: implement initState
@@ -194,9 +192,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: CustomeButton(
                     logo: AssetsManager.google,
                     text: StringsManager.signupWithGoogle.tr(),
-                    onclick: () {},
+                    onclick: () async {
+                      googleSignUp();
+                    },
                   ),
                 ),
+                SizedBox(height: 64),
               ],
             ),
           ),
@@ -204,6 +205,37 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
+
+  Future<void> googleSignUp() async{
+    try{
+      DialogUtils.loadingDialog(context: context);
+      UserCredential? credential = await auth.signInWithGoogle();
+      if (credential == null || credential.user == null) {
+        print("user not found");
+        Navigator.pop(context); // close loading
+        return;
+      }
+        final user = credential.user;
+        final newUser = MyUser.User(
+            id: credential.user!.uid,
+            email: user!.email,
+            name: user.displayName
+        );
+        // add user to database
+        await FirestoreManager.addUser(
+            userId: credential.user!.uid,
+            user: newUser
+        );
+        print("correct work");
+        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, Homescreen.routeName);
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+
 
   void signup() async {
     if (widget.formKey.currentState?.validate() ?? false) {

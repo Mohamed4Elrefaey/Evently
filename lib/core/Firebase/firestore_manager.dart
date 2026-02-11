@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/core/providers/EventProvider.dart';
 import 'package:evently/models/Event_model.dart';
 import 'package:evently/models/User.dart';
 import 'package:firebase_auth/firebase_auth.dart' as MyUser;
+import 'package:provider/provider.dart';
 
 class FirestoreManager {
+
+
   static CollectionReference<User> getUserCollection() {
     // Create object from Firestore (Singleton) and create Collection with name User
     var collection = FirebaseFirestore.instance
@@ -37,6 +41,19 @@ class FirestoreManager {
     return collection;
   }
 
+  static Future<bool> isUserExists(String useId) async{
+    var collection = getUserCollection();
+    var doc = await collection.doc(useId).get();
+    return doc.exists;
+  }
+
+  static Future<void> updateEvent({required Event event}){
+    var collection = getEventCollection() ;
+    var doc = collection.doc(event.id);
+    return doc.update(event.toFirestore());
+  }
+
+
   static Future<void> addUser({required String userId, required User user}) {
     var collection = getUserCollection();
     // must create the doc with the same auth id
@@ -58,6 +75,12 @@ class FirestoreManager {
     var doc = collection.doc();
     event.id = doc.id;
     return doc.set(event); // Future
+  }
+
+  static Future<void> deleteEvent({required String? eventId}){
+    var collection = getEventCollection();
+    var doc = collection.doc(eventId);
+    return doc.delete();
   }
 
   // get all events from firestore
@@ -129,7 +152,6 @@ class FirestoreManager {
         );
     return favoriteCollection;
   }
-
   // add favorite event to favorite collection into user document
   static Future<void> addFavoriteEvent({required Event event}) {
     var collection = getFavoriteCollection();

@@ -19,6 +19,8 @@ abstract final class StringsManager {
   static const String startBtn = "start_btn";
   static const String nextBtn = "next_btn";
   static const String skip = "skip";
+  static const String eventDetails = "event_details";
+  static const String editEvent = "edit_event";
 
   static const String title = "title";
   static const String eventDate = "event_date";
@@ -74,7 +76,13 @@ abstract final class StringsManager {
   static const String exhibition = "exhibition";
   static const String searchHint = "search_hint";
   static const String birthdayParty = "birthday_party";
+  static const String deleteMessage = "delete_message";
 
   static const String logoutDialog = "logout_dialog";
+  static const String logoutBtnYes = "logout_yes";
+  static const String logoutBtnNo = "logout_no";
+  static const String noFavorite = "no_favorite";
+  static const String logoutDialogTitle = "logout_dialog_title";
+  static const String upDateEvent = "upDate_event";
 
 }

@@ -29,6 +29,7 @@ abstract class AppTheme {
       }),
     ),
     appBarTheme: AppBarTheme(
+      scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
       centerTitle: true,
     ),
@@ -44,7 +45,11 @@ abstract class AppTheme {
         fontSize: 14,
         color: ColorsManager.mainTextLight,
       ),
-
+      labelSmall: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+        color: ColorsManager.mainTextLight
+      ),
       titleMedium: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 20,
@@ -80,6 +85,18 @@ abstract class AppTheme {
         fontWeight: FontWeight.w500,
         color: ColorsManager.mainTextLight,
       ),
+
+      labelMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.mainTextLight
+      ),
+        displaySmall: TextStyle(
+          fontSize: 16 ,
+          fontWeight: FontWeight.w500,
+          color: ColorsManager.backgroundLight
+        )
+
     ),
 
     colorScheme: ColorScheme.light(
@@ -94,6 +111,9 @@ abstract class AppTheme {
       onTertiary: ColorsManager.disableColorLight,
       onTertiaryContainer: ColorsManager.disableColorLight,
       surfaceBright: ColorsManager.backgroundLight,
+      primaryFixed: ColorsManager.red,
+      onSecondary: ColorsManager.backgroundLight,
+
     ),
   );
 
@@ -176,12 +196,28 @@ abstract class AppTheme {
         fontWeight: FontWeight.w500,
         color: ColorsManager.mainTextDark,
       ),
+        labelSmall: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+            color: ColorsManager.secTextDark
+        ),
 
       headlineLarge: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w500,
         color: ColorsManager.mainTextDark,
       ),
+
+        labelMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ColorsManager.mainColorDark
+        ),
+        displaySmall: TextStyle(
+        fontSize: 16 ,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.backgroundLight
+    )
     ),
     colorScheme: ColorScheme.dark(
       primary: ColorsManager.mainColorDark,
@@ -195,6 +231,8 @@ abstract class AppTheme {
       onTertiaryContainer: ColorsManager.mainTextDark,
       onTertiary: ColorsManager.disableColorDark,
       surfaceBright: ColorsManager.backgroundDark,
+      primaryFixed: ColorsManager.red,
+      onSecondary: ColorsManager.inputsDark,
     ),
   );
 }

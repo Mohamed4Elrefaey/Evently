@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/providers/User_provider.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:evently/core/resources/StringsManager.dart';
+import 'package:evently/ui/home/taps/Home_tab/Profile/widgets/logout_dialog.dart';
 import 'package:evently/ui/home/taps/Home_tab/Profile/widgets/settingsContainer.dart';
 import 'package:evently/ui/login_screen/LoginScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,9 +15,8 @@ class Logout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        await FirebaseAuth.instance.signOut();
-        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+      onTap: ()  {
+        showLogoutDialog(context);
       },
       child: SettingsContainer(
         title: StringsManager.logout.tr(),
@@ -24,4 +24,16 @@ class Logout extends StatelessWidget {
       ),
     );
   }
+
+
+  void showLogoutDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (context) => LogoutDialog()
+    );
+
+  }
+
+
+
 }

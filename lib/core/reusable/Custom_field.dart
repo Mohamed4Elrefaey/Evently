@@ -10,6 +10,7 @@ class CustomField extends StatefulWidget {
   bool? isPass;
   String? suffixIcon;
   int maxLines;
+  ValueChanged<String>? onChange  ;
 
   String? Function(String?)? validation;
 
@@ -21,6 +22,7 @@ class CustomField extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isPass = false,
+    this.onChange
   });
 
   @override
@@ -33,6 +35,7 @@ class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged:  widget.onChange ,
       controller: widget.controller,
       maxLines: widget.maxLines,
       validator: widget.validation,

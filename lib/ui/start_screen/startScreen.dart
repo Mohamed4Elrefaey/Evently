@@ -82,7 +82,7 @@ class StartScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 16),
           ],
         ),
       ),

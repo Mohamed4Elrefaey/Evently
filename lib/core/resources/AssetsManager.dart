@@ -45,4 +45,13 @@ abstract final class AssetsManager {
   static const String meetingImageDark = "assets/images/meeting_dark.png";
   static const String sportImage = "assets/images/sport.png";
   static const String sportImageDark = "assets/images/Sport_dark.png";
+  static const String editEventIcon = "assets/icons/edit.svg";
+  static const String deleteEventIcon = "assets/icons/trash.svg";
+  static const String logoutDialog = "assets/images/logout.png";
+  static const String logoutDialogLight = "assets/images/Logout_light.png";
+  static const String noFavoriteLight = "assets/images/no_favorites_light.png";
+  static const String noFavoriteDark = "assets/images/no_favorite_dark.png";
+  static const String xIcon = "assets/icons/x_icon.svg";
+
+
 }

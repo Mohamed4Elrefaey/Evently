@@ -42,7 +42,7 @@ class ProfileTab extends StatelessWidget {
             SizedBox(height: 32),
             Mode(),
             SizedBox(height: 16),
-            Language(click: (){},),
+            Language(),
             SizedBox(height: 16),
             Logout(),
           ],

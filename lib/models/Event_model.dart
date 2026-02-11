@@ -9,7 +9,7 @@ class Event {
   String? title;
   Timestamp? dateOfTime;
 
-  Event({this.id, this.userId, this.type, this.title, this.desc, this.dateOfTime});
+  Event( {this.id, this.userId, this.type, this.title, this.desc, this.dateOfTime});
 
   Event.fromFirestore(Map<String, dynamic>? data) {
     id = data?["id"];

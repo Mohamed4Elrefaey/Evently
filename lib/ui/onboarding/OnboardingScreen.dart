@@ -48,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,16 +77,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             width: 32,
                             height: 32,
-                            child: SvgPicture.asset(
-                              EasyLocalization.of(
-                                        context,
-                                      )!.locale.languageCode ==
-                                      'ar'
-                                  ? AssetsManager.arrowRight
-                                  : AssetsManager.arrowBack,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).colorScheme.onSurface,
-                                BlendMode.srcIn,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: SvgPicture.asset(
+                                EasyLocalization.of(
+                                          context,
+                                        )!.locale.languageCode ==
+                                        'ar'
+                                    ? AssetsManager.arrowRight
+                                    : AssetsManager.arrowBack,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).colorScheme.onSurface,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
                           ),

@@ -76,7 +76,7 @@ class HomeTap extends StatelessWidget {
                   ),
                   Tab(
                     child: TabContainer(
-                      icon: MyFlutterApp.exhibition,
+                      icon: MyFlutterApp.birthday_cake,
                       title: StringsManager.exhibition.tr(),
                     ),
                   ),

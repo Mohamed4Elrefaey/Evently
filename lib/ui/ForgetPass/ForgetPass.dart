@@ -5,6 +5,7 @@ import 'package:evently/core/resources/Validation.dart';
 import 'package:evently/core/reusable/CustomAppBar.dart';
 import 'package:evently/core/reusable/Custom_field.dart';
 import 'package:evently/core/reusable/Custome_button.dart';
+import 'package:evently/ui/login_screen/LoginScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -56,31 +57,33 @@ class _ForgetPassState extends State<ForgetPass> {
               ?.copyWith(fontSize: 18),
         ),
       ),
-      body: Form(
-        key: formKey,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Column(
-              children: [
-                Image.asset(AssetsManager.forgetPass),
-                SizedBox(height: 32),
-                CustomField(
-                  prefixIcon: AssetsManager.email,
-                  validation: Validation.validateEmail,
-                  hint: StringsManager.enterYourEmail,
-                  controller: controller,
-                ),
-                SizedBox(height: 24),
-                Container(
-                  width: double.infinity,
-                  height: 48,
-                  child: CustomeButton(
-                    text: StringsManager.resetPasswordBtn.tr(),
-                    onclick: resetPass,
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Column(
+                children: [
+                  Image.asset(AssetsManager.forgetPass),
+                  SizedBox(height: 32),
+                  CustomField(
+                    prefixIcon: AssetsManager.email,
+                    validation: Validation.validateEmail,
+                    hint: StringsManager.enterYourEmail,
+                    controller: controller,
                   ),
-                ),
-              ],
+                  SizedBox(height: 24),
+                  Container(
+                    width: double.infinity,
+                    height: 48,
+                    child: CustomeButton(
+                      text: StringsManager.resetPasswordBtn.tr(),
+                      onclick: resetPass,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -97,7 +100,8 @@ class _ForgetPassState extends State<ForgetPass> {
         );
         Navigator.pop(context);
         DialogUtils.showToast(
-            "mail sent successfully please check your email", context);
+            "please check your email and try Login again", context);
+        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
       } on FirebaseAuthException catch (e) {
         Navigator.pop(context);
         if (e.code == "user-not-found") {

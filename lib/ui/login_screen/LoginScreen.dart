@@ -10,8 +10,10 @@ import 'package:evently/ui/signup/Signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/Firebase/firestore_manager.dart';
 import '../../core/Firebase/google_auth.dart';
 import '../../core/resources/AssetsManager.dart';
+import '../../models/User.dart' as MyUser;
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -50,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Image.asset(
           AssetsManager.logo,
           height: 27,
@@ -176,17 +179,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: CustomeButton(
                     logo: AssetsManager.google,
                     text: StringsManager.loginWithGoogle.tr(),
-                    onclick: () async {
-                      await auth.signInWithGoogle();
+                    onclick: ()async {
+                      await googleSignIn();
                     },
                   ),
                 ),
+                SizedBox(height: 32),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> googleSignIn() async{
+    try{
+      DialogUtils.loadingDialog(context: context);
+      UserCredential? credential = await auth.signInWithGoogle();
+      if (credential == null || credential.user == null) {
+        print("user not found");
+        Navigator.pop(context); // close loading
+        return;
+      }
+      final user = credential.user;
+      // add user to database
+      bool isFound = await FirestoreManager.isUserExists(user!.uid);
+      if(!isFound){
+        final newUser = MyUser.User(
+            id: credential.user!.uid,
+            email: user.email,
+            name: user.displayName
+        );
+        await FirestoreManager.addUser(
+            userId: credential.user!.uid,
+            user: newUser
+        );
+        print("New User SignUp");
+      }else{
+        print("Existing user logged in");
+      }
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, Homescreen.routeName);
+    }catch(e){
+      print(e.toString());
+    }
   }
 
   void login() async {
